@@ -7,3 +7,14 @@
 //
 
 import Foundation
+
+protocol APIServiceProtocol {
+    func fetchRepoList(completion: @escaping (_ success: Bool, _ repoList: [Repository]) -> ())
+}
+
+class APIService: APIServiceProtocol {
+    func fetchRepoList(completion: @escaping (Bool, [Repository]) -> ()) {
+        let repos = try? JSONDecoder().decode([Repository].self, from: MockData.list)
+        completion(true, repos!)
+    }
+}
